@@ -4,7 +4,8 @@
 #[macro_use] extern crate rocket_contrib;
 
 mod game;
+mod db;
 
 fn main() {
-    rocket::ignite().mount("/", routes![game::index]).launch();
+    rocket::ignite().mount("/", routes![game::init]).launch();
 }
