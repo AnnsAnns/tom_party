@@ -5,8 +5,6 @@ use rocket_contrib::json::JsonValue;
 
 use redis::Commands;
 
-use uuid::Uuid;
-
 use rand::{distributions::Alphanumeric, Rng};
 
 use crate::db;
@@ -22,7 +20,7 @@ pub struct InviteBody {
 pub fn create_invite(data: Json<InviteBody>) -> JsonValue {
     let mut con = match db::init_con() {
         Ok(con) => con,
-        Err(err) => return helpers::error_message("Issue connecting to database"),
+        Err(_) => return helpers::error_message("Issue connecting to database"),
     };
 
     let owner: String = con

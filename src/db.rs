@@ -1,5 +1,5 @@
 extern crate redis;
-use redis::{Commands, Connection, RedisResult};
+use redis::{Commands, Connection};
 use std::error::Error;
 
 pub fn init_con() -> Result<redis::Connection, Box<dyn Error>> {

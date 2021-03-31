@@ -3,13 +3,6 @@ use serde::Deserialize;
 use rocket_contrib::json::Json;
 use rocket_contrib::json::JsonValue;
 
-use redis::Commands;
-
-use uuid::Uuid;
-
-use rand::{distributions::Alphanumeric, Rng};
-
-use crate::db;
 use crate::helpers;
 
 #[derive(Deserialize)]
