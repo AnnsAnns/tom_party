@@ -1,3 +1,6 @@
+use redis::Connection;
+use redis::Commands;
+
 use rocket_contrib::json::JsonValue;
 
 pub fn error_message(content: &str) -> JsonValue {

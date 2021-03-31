@@ -8,5 +8,5 @@ mod helpers;
 mod db;
 
 fn main() {
-    rocket::ignite().mount("/games/replies/", routes![game::replies::init]).launch();
+    rocket::ignite().mount("/games/replies/", routes![game::replies::init, game::replies::create_invite]).launch();
 }

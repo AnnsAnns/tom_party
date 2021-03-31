@@ -1471,6 +1471,7 @@ version = "0.1.0"
 dependencies = [
  "diesel",
  "dotenv",
+ "rand",
  "redis",
  "rocket",
  "rocket_contrib",
