@@ -4,6 +4,7 @@
 #[macro_use] extern crate rocket_contrib;
 
 mod game;
+mod helpers;
 mod db;
 
 fn main() {

@@ -1,10 +1,7 @@
-Usage:
+### Usage:
 
-Have some redis instance installed, I just have a docker instance:
+Install redis:
 
 ```
-docker build .
+pacman -S redis
 ```
-
-and then run it
-
