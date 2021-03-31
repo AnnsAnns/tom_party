@@ -50,7 +50,7 @@ pub fn create_invite(data: Json<InviteBody>) -> JsonValue {
         return helpers::error_message("Owner UUID is not the same, no permissions!")
     }
 
-    let mut invite_code: String = rand::thread_rng()
+    let invite_code: String = rand::thread_rng()
         .sample_iter(&Alphanumeric)
         .take(4)
         .map(char::from)

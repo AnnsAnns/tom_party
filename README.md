@@ -1,7 +1,12 @@
-### Usage:
+## tom_party [Placeholder Name]
 
-Install redis:
+This is an experimental project of mine. The idea is to create a party-game similar to Jackbox.
 
-```
-pacman -S redis
-```
+The server will be written in Rust, using Reddis as the in-memory database for it, while the game will be programmed using GDScript in the Godot engine (Probably).
+
+### Requirements:
+
+This needs:
+ - Rust, including all dependencies in the cargo file
+ - Redis
+ - Godot (soon™)
