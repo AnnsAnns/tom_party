@@ -7,9 +7,8 @@ use uuid::Uuid;
 
 use crate::db;
 
-use crate::game::InitStructure;
-
-pub fn init(data: Json<InitStructure>) -> JsonValue {
+#[post("/init")]
+pub fn init() -> JsonValue {
     // @TODO: Verify session
     // @TODO: Verify data
     let uuid = Uuid::new_v4();
