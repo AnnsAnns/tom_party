@@ -15,7 +15,8 @@ fn main() {
             "/games/replies/",
             routes![
                 games::replies::init::init,
-                games::replies::create_invite::create_invite
+                games::replies::create_invite::create_invite,
+                games::replies::join_game::join_game
             ],
         )
         .launch();

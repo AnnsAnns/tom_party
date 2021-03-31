@@ -1,3 +1,5 @@
+use std::borrow::Borrow;
+
 use serde::Deserialize;
 
 use rocket_contrib::json::Json;
@@ -23,9 +25,10 @@ pub fn create_invite(data: Json<InviteBody>) -> JsonValue {
         Err(_) => return helpers::error_message("Issue connecting to database"),
     };
 
-    let owner: String = con
-        .hget(format!("replies:{}", data.uuid_game), "owner")
-        .unwrap();
+    let owner: String = match con.hget(format!("replies:{}", data.uuid_game), "owner") {
+        Ok(string) => string,
+        Err(err) => return helpers::error_message("Error finding match!")
+    };
 
     if owner != data.uuid_owner {
         return helpers::error_message("Owner UUID is not the same, no permissions!");
@@ -37,11 +40,17 @@ pub fn create_invite(data: Json<InviteBody>) -> JsonValue {
         .map(char::from)
         .collect(); // Stolen from https://stackoverflow.com/questions/54275459/how-do-i-create-a-random-string-by-sampling-from-alphanumeric-characters
 
-    db::set(
-        con,
+    db::hset(
+        &mut con,
         &format!("replies:{}", &data.uuid_game),
         "invite_code",
         &invite_code,
+    );
+
+    db::set(
+        &mut con,
+        &invite_code,
+        &data.uuid_game
     );
 
     json!({
