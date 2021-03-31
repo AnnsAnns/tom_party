@@ -9,19 +9,16 @@ use crate::db;
 
 #[post("/init")]
 pub fn init() -> JsonValue {
-    // @TODO: Verify session
-    // @TODO: Verify data
-    let uuid = Uuid::new_v4();
+    let uuid_game = Uuid::new_v4().to_string();
+    let uuid_user = Uuid::new_v4().to_string();
 
     let mut con = db::init_con().unwrap(); // @TODO: Proper error handling
 
-    let _ : () = con.hset(format!("replies:{id}", id = uuid),"alive", true).unwrap();
-
-    let game_info: Option<String> = con.hget(format!("replies:{id}", id = uuid), "alive").unwrap();
+    let _ : () = con.hset(format!("replies:{id}", id = &uuid_game),"owner", &uuid_user).unwrap();
 
     json!({
         "worked": true,
-        "redis_data": game_info,
-        "id": uuid,
+        "uuid_game": uuid_game,
+        "uuid_user": uuid_user
     })
 }
