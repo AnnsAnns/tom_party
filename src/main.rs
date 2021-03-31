@@ -1,12 +1,22 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
-#[macro_use] extern crate rocket;
-#[macro_use] extern crate rocket_contrib;
+#[macro_use]
+extern crate rocket;
+#[macro_use]
+extern crate rocket_contrib;
 
-mod game;
-mod helpers;
 mod db;
+mod games;
+mod helpers;
 
 fn main() {
-    rocket::ignite().mount("/games/replies/", routes![game::replies::init, game::replies::create_invite]).launch();
+    rocket::ignite()
+        .mount(
+            "/games/replies/",
+            routes![
+                games::replies::init::init,
+                games::replies::create_invite::create_invite
+            ],
+        )
+        .launch();
 }
