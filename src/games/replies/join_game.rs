@@ -1,5 +1,3 @@
-use std::borrow::Borrow;
-
 use redis::Commands;
 use serde::Deserialize;
 
@@ -9,6 +7,8 @@ use uuid::Uuid;
 
 use crate::db;
 use crate::helpers;
+
+use crate::games::replies::MAXPLAYERS;
 
 #[derive(Deserialize)]
 pub struct JoinGame {
@@ -29,10 +29,13 @@ pub fn join_game(data: Json<JoinGame>) -> JsonValue {
     };
 
     let player_names: Vec<String> = con.hkeys(format!("replies:{}:players", &session_id)).unwrap(); // Get all player names
-    let players: u8 = con.hget(&format!("replies:{}:players", &session_id), "amount").unwrap(); // Get amount of active players
-
     if player_names.contains(&data.name) {
         return helpers::error_message("Player name already exists!");
+    }
+
+    let players: u8 = con.hget(&format!("replies:{}:players", &session_id), "amount").unwrap(); // Get amount of active players
+    if players >= MAXPLAYERS {
+        return helpers::error_message("Max player amount reached")
     }
 
     db::hset(&mut con, &format!("replies:{}:players", &session_id), "amount", &(&players + 1).to_string()); // Increase active players by one
