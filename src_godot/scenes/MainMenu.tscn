@@ -48,6 +48,20 @@ __meta__ = {
 [node name="CreateInviteRequest" type="HTTPRequest" parent="CreateInviteCode"]
 timeout = 10
 
+[node name="Top" type="Label" parent="CreateInviteCode"]
+margin_left = 502.0
+margin_top = 4.0
+margin_right = 742.0
+margin_bottom = 26.0
+text = "The current invite code is: "
+
+[node name="Code" type="Label" parent="CreateInviteCode"]
+margin_left = 528.0
+margin_top = 25.0
+margin_right = 568.0
+margin_bottom = 39.0
+rect_scale = Vector2( 3, 3 )
+
 [node name="JoinGame" type="Button" parent="."]
 margin_left = 82.9093
 margin_top = 424.837
@@ -61,9 +75,9 @@ __meta__ = {
 
 [node name="InviteCodeInput" type="TextEdit" parent="JoinGame"]
 margin_left = 484.318
-margin_top = -7.88199
+margin_top = -5.88199
 margin_right = 808.318
-margin_bottom = 23.118
+margin_bottom = 25.118
 text = "Invite Code"
 __meta__ = {
 "_edit_use_anchors_": false
