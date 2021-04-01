@@ -14,14 +14,16 @@ pub fn init_con() -> Result<redis::Connection, Box<dyn Error>> {
 
 pub fn hset(con: &mut Connection, key: &str, field: &str, value: &str) {
     let _: () = con.hset(key, field, value).unwrap();
+    let _: () = con.expire(key, 30*60).unwrap(); // Expire session after 30 minutes
 }
 
 pub fn set(con: &mut Connection, key: &str, value: &str) {
     let _: () = con.set(key, value).unwrap();
+    let _: () = con.expire(key, 30*60).unwrap(); // Expire session after 30 minutes
 }
 
-pub fn replace(con: &mut Connection, old_key: &str, new_key: &str) {
-    let _: () = con.set(old_key, new_key).unwrap();
+pub fn rename(con: &mut Connection, old_key: &str, new_key: &str) {
+    let _: () = con.rename(old_key, new_key).unwrap();
 }
 
 pub fn find_invite(con: &mut Connection, invite_code: &str) -> Result<String, JsonValue> {
