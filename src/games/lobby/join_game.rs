@@ -8,7 +8,7 @@ use uuid::Uuid;
 use crate::db;
 use crate::helpers;
 
-use crate::games::replies::MAXPLAYERS;
+use crate::games::lobby::MAXPLAYERS;
 
 #[derive(Deserialize)]
 pub struct JoinGame {

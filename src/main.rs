@@ -12,11 +12,11 @@ mod helpers;
 fn main() {
     rocket::ignite()
         .mount(
-            "/games/replies/",
+            "/games/lobby/",
             routes![
-                games::replies::init::init,
-                games::replies::create_invite::create_invite,
-                games::replies::join_game::join_game
+                games::lobby::init::init,
+                games::lobby::create_invite::create_invite,
+                games::lobby::join_game::join_game
             ],
         )
         .launch();

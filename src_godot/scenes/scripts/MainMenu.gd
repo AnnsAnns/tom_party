@@ -13,7 +13,7 @@ var use_ssl = false
 
 func _on_CreateGame_pressed():
 	var err = $CreateGame/CreateGameRequest.request(
-		server_url + "games/replies/init",
+		server_url + "games/lobby/init",
 		user_agent, 
 		use_ssl, 
 		HTTPClient.METHOD_POST
@@ -46,7 +46,7 @@ func _on_CreateInviteCode_pressed():
 		request["old_token"] = game_token
 	
 	var err = $CreateInviteCode/CreateInviteRequest.request(
-	 server_url + "games/replies/create_invite",
+	 server_url + "games/lobby/create_invite",
 	 user_agent + content_type,
 	 use_ssl,
 	 HTTPClient.METHOD_POST,
@@ -88,7 +88,7 @@ func _on_JoinGame_pressed():
 	}
 	
 	var err = $JoinGame/JoinGameRequest.request(
-	 server_url + "games/replies/join_game",
+	 server_url + "games/lobby/join_game",
 	 user_agent + content_type,
 	 use_ssl,
 	 HTTPClient.METHOD_POST,
