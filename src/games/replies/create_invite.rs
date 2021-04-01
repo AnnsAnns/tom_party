@@ -16,6 +16,7 @@ use crate::helpers;
 pub struct InviteBody {
     uuid_game: String,
     uuid_owner: String,
+    old_token: Option<String>,
 }
 
 #[post("/create_invite", format = "json", data = "<data>")]
@@ -47,11 +48,17 @@ pub fn create_invite(data: Json<InviteBody>) -> JsonValue {
         &invite_code,
     );
 
-    db::set(
-        &mut con,
-        &invite_code,
-        &data.uuid_game
-    );
+    match &data.old_token { // Only rename old session if it exists
+        Some(old_token) => db::rename(
+            &mut con,
+            &old_token, 
+            &invite_code),
+        None => db::set(
+            &mut con,
+            &invite_code,
+            &data.uuid_game
+        )
+    }
 
     json!({
         "worked": true,
