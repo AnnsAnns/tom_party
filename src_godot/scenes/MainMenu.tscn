@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/scripts/MainMenu.gd" type="Script" id=1]
+[ext_resource path="res://gfx/Pog.png" type="Texture" id=2]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource( 1 )
@@ -49,18 +50,24 @@ __meta__ = {
 timeout = 10
 
 [node name="Top" type="Label" parent="CreateInviteCode"]
-margin_left = 502.0
-margin_top = 4.0
-margin_right = 742.0
-margin_bottom = 26.0
+margin_left = 540.699
+margin_top = 2.11224
+margin_right = 780.699
+margin_bottom = 24.1122
 text = "The current invite code is: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Code" type="Label" parent="CreateInviteCode"]
-margin_left = 528.0
-margin_top = 25.0
-margin_right = 568.0
-margin_bottom = 39.0
+margin_left = 566.699
+margin_top = 24.0561
+margin_right = 606.699
+margin_bottom = 38.0561
 rect_scale = Vector2( 3, 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="JoinGame" type="Button" parent="."]
 margin_left = 82.9093
@@ -73,28 +80,63 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="InviteCodeInput" type="TextEdit" parent="JoinGame"]
-margin_left = 484.318
-margin_top = -5.88199
-margin_right = 808.318
-margin_bottom = 25.118
-text = "Invite Code"
+[node name="LabelName" type="Label" parent="JoinGame"]
+margin_left = 487.813
+margin_top = -18.9635
+margin_right = 727.813
+margin_bottom = 3.0365
+text = "Your Name:
+"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Name" type="TextEdit" parent="JoinGame"]
-margin_left = 484.318
-margin_top = 35.118
-margin_right = 808.318
-margin_bottom = 66.118
-text = "Name"
+margin_left = 489.982
+margin_top = 3.02634
+margin_right = 813.982
+margin_bottom = 34.0263
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelToken" type="Label" parent="JoinGame"]
+margin_left = 488.756
+margin_top = 41.4445
+margin_right = 728.756
+margin_bottom = 63.4445
+text = "Invite Code:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Token" type="TextEdit" parent="JoinGame"]
+margin_left = 489.038
+margin_top = 62.4905
+margin_right = 813.038
+margin_bottom = 93.4905
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="JoinGameRequest" type="HTTPRequest" parent="JoinGame"]
 timeout = 10
+
+[node name="Pog" type="Sprite" parent="."]
+visible = false
+position = Vector2( 516.114, 303.481 )
+scale = Vector2( 2.00824, 2.17919 )
+texture = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="Pog"]
+margin_left = -145.321
+margin_top = -122.074
+margin_right = 172.679
+margin_bottom = -108.074
+text = "YOU DID IT, YOU ARE CONNECTED TO THE SERVER"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="CreateGame" to="." method="_on_CreateGame_pressed"]
 [connection signal="request_completed" from="CreateGame/CreateGameRequest" to="." method="_on_CreateGameRequest_request_completed"]
 [connection signal="pressed" from="CreateInviteCode" to="." method="_on_CreateInviteCode_pressed"]

@@ -2,7 +2,10 @@ extends Node2D
 
 var session_id: String
 var owner_id: String
+var user_id: String
 var game_token: String
+var username: String
+
 var server_url = "http://127.0.0.1:8000/"
 var user_agent = ["user-agent: Godot Client"]
 var content_type = ["Content-Type: application/json"]
@@ -65,7 +68,50 @@ func _on_CreateInviteRequest_request_completed(result, response_code, headers, b
 	$CreateInviteCode/Code.text = game_token
 
 func _on_JoinGame_pressed():
-	pass # Replace with function body.
+	var input_token = $JoinGame/Token
+	
+	if $JoinGame/Name.text == "":
+		print("No name found")
+		return
+	else:
+		username = $JoinGame/Name.text
+			
+	if game_token == "" and input_token == "":
+		print("No Token Found")
+		return
+	elif game_token != "":
+		input_token = game_token
+	
+	var request = {
+		"invite_code": game_token,
+		"name": username
+	}
+	
+	var err = $JoinGame/JoinGameRequest.request(
+	 server_url + "games/replies/join_game",
+	 user_agent + content_type,
+	 use_ssl,
+	 HTTPClient.METHOD_POST,
+	 JSON.print(request)
+	)
+	if err != OK:
+		push_error("Couldn't connect")
+	
 
 func _on_JoinGameRequest_request_completed(result, response_code, headers, body):
-	pass # Replace with function body.
+	var response = JSON.parse(body.get_string_from_utf8()).result
+	
+	print(response)
+
+	if !response["worked"]:
+		print("Server had issues processing the join request")
+		
+		if response.contains("error"):
+			print(response["error"])
+		return
+		
+	session_id = response["session_id"]
+	user_id = response["user_id"]
+	username = response["username"]
+	
+	$Pog.show()
