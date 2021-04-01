@@ -28,7 +28,7 @@ pub fn create_invite(data: Json<InviteBody>) -> JsonValue {
 
     let owner: String = match con.hget(format!("replies:{}", data.uuid_game), "owner") {
         Ok(string) => string,
-        Err(err) => return helpers::error_message("Error finding match!")
+        Err(err) => return helpers::error_message("Error finding match!"),
     };
 
     if owner != data.uuid_owner {
@@ -48,16 +48,10 @@ pub fn create_invite(data: Json<InviteBody>) -> JsonValue {
         &invite_code,
     );
 
-    match &data.old_token { // Only rename old session if it exists
-        Some(old_token) => db::rename(
-            &mut con,
-            &old_token, 
-            &invite_code),
-        None => db::set(
-            &mut con,
-            &invite_code,
-            &data.uuid_game
-        )
+    match &data.old_token {
+        // Only rename old session if it exists
+        Some(old_token) => db::rename(&mut con, &old_token, &invite_code),
+        None => db::set(&mut con, &invite_code, &data.uuid_game),
     }
 
     json!({
