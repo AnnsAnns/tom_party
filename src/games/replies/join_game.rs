@@ -28,7 +28,12 @@ pub fn join_game(data: Json<JoinGame>) -> JsonValue {
         Err(err) => return err
     };
 
+    let player_names: Vec<String> = con.hkeys(format!("replies:{}:players", &session_id)).unwrap(); // Get all player names
     let players: u8 = con.hget(&format!("replies:{}:players", &session_id), "amount").unwrap(); // Get amount of active players
+
+    if player_names.contains(&data.name) {
+        return helpers::error_message("Player name already exists!");
+    }
 
     db::hset(&mut con, &format!("replies:{}:players", &session_id), "amount", &(&players + 1).to_string()); // Increase active players by one
 
