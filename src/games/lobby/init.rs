@@ -18,14 +18,14 @@ pub fn init() -> JsonValue {
     db::hset(
         // Create session owner || @TODO: First player should also have the uuid_owner rights
         &mut con,
-        &format!("replies:{id}", id = &uuid_game),
+        &format!("{id}", id = &uuid_game),
         "owner",
         &uuid_owner,
     );
 
     db::hset(
         &mut con,
-        &format!("replies:{}:players", &uuid_game),
+        &format!("{}:players", &uuid_game),
         "amount",
         "0",
     );

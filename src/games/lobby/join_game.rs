@@ -30,14 +30,14 @@ pub fn join_game(data: Json<JoinGame>) -> JsonValue {
     };
 
     let player_names: Vec<String> = con
-        .hkeys(format!("replies:{}:players", &session_id))
+        .hkeys(format!("{}:players", &session_id))
         .unwrap(); // Get all player names
     if player_names.contains(&data.name) {
         return helpers::error_message("Player name already exists!");
     }
 
     let players: u8 = con
-        .hget(&format!("replies:{}:players", &session_id), "amount")
+        .hget(&format!("{}:players", &session_id), "amount")
         .unwrap(); // Get amount of active players
     if players >= MAXPLAYERS {
         return helpers::error_message("Max player amount reached");
@@ -45,23 +45,34 @@ pub fn join_game(data: Json<JoinGame>) -> JsonValue {
 
     db::hset(
         &mut con,
-        &format!("replies:{}:players", &session_id),
+        &format!("{}:players", &session_id),
         "amount",
         &(&players + 1).to_string(),
     ); // Increase active players by one
 
     let user_id: String = match players {
         0 => con
-            .hget(&format!("replies:{}", &session_id), "owner")
+            .hget(&format!("{}", &session_id), "owner")
             .unwrap(),
         _ => Uuid::new_v4().to_string(),
     };
 
     db::hset(
         &mut con,
-        &format!("replies:{}:players", &session_id),
+        &format!("{}:players", &session_id),
         &data.name,
         &user_id,
+    );
+
+    db::hset(
+        &mut con,
+        &format!(
+         "{}:players:{}",
+         &session_id,
+         &data.name
+        ),
+        "connected",
+        "true"
     );
 
     json!({

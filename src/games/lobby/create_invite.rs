@@ -24,7 +24,7 @@ pub fn create_invite(data: Json<InviteBody>) -> JsonValue {
         Err(_) => return helpers::error_message("Issue connecting to database"),
     };
 
-    let owner: String = match con.hget(format!("replies:{}", data.uuid_game), "owner") {
+    let owner: String = match con.hget(format!("{}", data.uuid_game), "owner") {
         Ok(string) => string,
         Err(_err) => return helpers::error_message("Error finding match!"),
     };
@@ -41,7 +41,7 @@ pub fn create_invite(data: Json<InviteBody>) -> JsonValue {
 
     db::hset(
         &mut con,
-        &format!("replies:{}", &data.uuid_game),
+        &format!("{}", &data.uuid_game),
         "invite_code",
         &invite_code,
     );
