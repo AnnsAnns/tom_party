@@ -1,21 +1,12 @@
 extends Node2D
 
-var session_id: String
-var owner_id: String
-var user_id: String
-var game_token: String
-var username: String
-
-var server_url = "http://127.0.0.1:8000/"
-var user_agent = ["user-agent: Godot Client"]
-var content_type = ["Content-Type: application/json"]
-var use_ssl = false
+onready var global = get_node("/root/global")
 
 func _on_CreateGame_pressed():
 	var err = $CreateGame/CreateGameRequest.request(
-		server_url + "games/lobby/init",
-		user_agent, 
-		use_ssl, 
+		global.server_url + "games/lobby/init",
+		global.user_agent, 
+		global.use_ssl, 
 		HTTPClient.METHOD_POST
 	)
 	if err != OK:
@@ -29,26 +20,26 @@ func _on_CreateGameRequest_request_completed(result, response_code, headers, bod
 	if !response["worked"]:
 		push_error("Server had issues creating the game!")
 
-	session_id = response["uuid_game"]
-	owner_id = response["uuid_owner"]
+	global.session_id = response["uuid_game"]
+	global.owner_id = response["uuid_owner"]
 
 func _on_CreateInviteCode_pressed():
-	if session_id == "" or owner_id == "":
+	if global.session_id == "" or global.owner_id == "":
 		print("No session started yet")
 		return
 	
 	var request = {
-		"uuid_game": session_id,
-		"uuid_owner": owner_id,
+		"uuid_game": global.session_id,
+		"uuid_owner": global.owner_id,
 	}
 	
-	if game_token != "":
-		request["old_token"] = game_token
+	if global.game_token != "":
+		request["old_token"] = global.game_token
 	
 	var err = $CreateInviteCode/CreateInviteRequest.request(
-	 server_url + "games/lobby/create_invite",
-	 user_agent + content_type,
-	 use_ssl,
+	 global.server_url + "games/lobby/create_invite",
+	 global.user_agent + global.content_type,
+	 global.use_ssl,
 	 HTTPClient.METHOD_POST,
 	 JSON.print(request)
 	)
@@ -64,8 +55,8 @@ func _on_CreateInviteRequest_request_completed(result, response_code, headers, b
 	if !response["worked"]:
 		push_error("Server had issues creating the invite code!")
 	
-	game_token = response["invite_code"]
-	$CreateInviteCode/Code.text = game_token
+	global.game_token = response["invite_code"]
+	$CreateInviteCode/Code.text = global.game_token
 
 func _on_JoinGame_pressed():
 	var input_token = $JoinGame/Token
@@ -74,23 +65,23 @@ func _on_JoinGame_pressed():
 		print("No name found")
 		return
 	else:
-		username = $JoinGame/Name.text
+		global.username = $JoinGame/Name.text
 			
-	if game_token == "" and input_token == "":
+	if global.game_token == "" and input_token == "":
 		print("No Token Found")
 		return
-	elif game_token != "":
-		input_token = game_token
+	elif global.game_token != "":
+		input_token = global.game_token
 	
 	var request = {
-		"invite_code": game_token,
-		"name": username
+		"invite_code": global.game_token,
+		"name": global.username
 	}
 	
 	var err = $JoinGame/JoinGameRequest.request(
-	 server_url + "games/lobby/join_game",
-	 user_agent + content_type,
-	 use_ssl,
+	 global.server_url + "games/lobby/join_game",
+	 global.user_agent + global.content_type,
+	 global.use_ssl,
 	 HTTPClient.METHOD_POST,
 	 JSON.print(request)
 	)
@@ -110,8 +101,8 @@ func _on_JoinGameRequest_request_completed(result, response_code, headers, body)
 			print(response["error"])
 		return
 		
-	session_id = response["session_id"]
-	user_id = response["user_id"]
-	username = response["username"]
+	global.session_id = response["session_id"]
+	global.user_id = response["user_id"]
+	global.username = response["username"]
 	
 	$Pog.show()

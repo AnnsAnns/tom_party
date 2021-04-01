@@ -19,6 +19,10 @@ config/name="tom_party"
 run/main_scene="res://scenes/MainMenu.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+global="*res://scenes/scripts/global.gd"
+
 [debug]
 
 settings/fps/force_fps=60
