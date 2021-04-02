@@ -24,11 +24,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CreateGame" parent="." instance=ExtResource( 5 )]
-
-[node name="CreateInviteCode" parent="." instance=ExtResource( 4 )]
-
 [node name="JoinGame" parent="." instance=ExtResource( 3 )]
+
+[node name="CreateInvite" parent="." instance=ExtResource( 4 )]
+
+[node name="CreateGame" parent="." instance=ExtResource( 5 )]
 
 [node name="Pog" type="Sprite" parent="."]
 visible = false
@@ -45,3 +45,95 @@ text = "YOU DID IT, YOU ARE CONNECTED TO THE SERVER"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CreateGameButton" type="Button" parent="."]
+margin_left = 337.341
+margin_top = 244.216
+margin_right = 651.341
+margin_bottom = 305.216
+text = "Create Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="JoinGameButton" type="Button" parent="."]
+margin_left = 337.341
+margin_top = 336.19
+margin_right = 651.341
+margin_bottom = 397.19
+text = "Join Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SettingsButton" type="Button" parent="."]
+margin_left = 337.341
+margin_top = 426.905
+margin_right = 651.341
+margin_bottom = 487.905
+text = "Settings"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QuitButton" type="Button" parent="."]
+margin_left = 341.121
+margin_top = 508.8
+margin_right = 655.121
+margin_bottom = 569.8
+text = "Quit Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameTbx" type="TextEdit" parent="."]
+margin_left = 30.6607
+margin_top = 342.599
+margin_right = 265.661
+margin_bottom = 387.599
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameLabel" type="Label" parent="."]
+margin_left = 38.2544
+margin_top = 299.454
+margin_right = 147.254
+margin_bottom = 320.454
+rect_scale = Vector2( 2, 2 )
+text = "Name:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InviteCodeTbx" type="TextEdit" parent="."]
+margin_left = 747.556
+margin_top = 351.419
+margin_right = 982.556
+margin_bottom = 396.419
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InviteCodeLabel" type="Label" parent="."]
+margin_left = 760.773
+margin_top = 308.363
+margin_right = 869.773
+margin_bottom = 329.363
+rect_scale = Vector2( 2, 2 )
+text = "Invite Code:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="joined_game" from="JoinGame" to="." method="_on_JoinGame_joined_game"]
+[connection signal="created_invite" from="CreateInvite" to="." method="_on_CreateInvite_created_invite"]
+[connection signal="created_game" from="CreateGame" to="." method="_on_CreateGame_created_game"]
+[connection signal="pressed" from="CreateGameButton" to="." method="_on_CreateGameButton_pressed"]
+[connection signal="pressed" from="JoinGameButton" to="." method="_on_JoinGameButton_pressed"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="text_changed" from="NameTbx" to="." method="_on_NameTbx_text_changed"]
+[connection signal="text_changed" from="InviteCodeTbx" to="." method="_on_InviteCodeTbx_text_changed"]

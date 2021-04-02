@@ -2,41 +2,9 @@
 
 [ext_resource path="res://scenes/scripts/CreateInviteCode.gd" type="Script" id=1]
 
-[node name="Node" type="Node"]
+[node name="CreateInvite" type="Node"]
 script = ExtResource( 1 )
 
-[node name="CreateInviteCode" type="Button" parent="."]
-margin_left = 76.2729
-margin_top = 308.43
-margin_right = 516.273
-margin_bottom = 369.43
-rect_pivot_offset = Vector2( 220, 42.2879 )
-text = "Create Invite Code"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CreateInviteRequest" type="HTTPRequest" parent="CreateInviteCode"]
+[node name="CreateInviteRequest" type="HTTPRequest" parent="."]
 timeout = 10
-
-[node name="Top" type="Label" parent="CreateInviteCode"]
-margin_left = 545.189
-margin_top = -20.337
-margin_right = 785.189
-margin_bottom = 1.66298
-text = "The current invite code is: "
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Code" type="Label" parent="CreateInviteCode"]
-margin_left = 571.189
-margin_top = 1.60689
-margin_right = 611.189
-margin_bottom = 15.6069
-rect_scale = Vector2( 3, 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-[connection signal="pressed" from="CreateInviteCode" to="." method="_on_CreateInviteCode_pressed"]
-[connection signal="request_completed" from="CreateInviteCode/CreateInviteRequest" to="." method="_on_CreateInviteRequest_request_completed"]
+[connection signal="request_completed" from="CreateInviteRequest" to="." method="_on_CreateInviteRequest_request_completed"]

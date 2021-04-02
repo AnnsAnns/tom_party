@@ -2,9 +2,12 @@ extends Node
 
 onready var global = get_node("/root/global")
 
-func _on_CreateInviteCode_pressed():
+signal created_invite(worked)
+
+func CreateInvite():
 	if global.session_id == "" or global.owner_id == "":
 		print("No session started yet")
+		emit_signal("created_invite", false)
 		return
 	
 	var request = {
@@ -15,7 +18,7 @@ func _on_CreateInviteCode_pressed():
 	if global.game_token != "":
 		request["old_token"] = global.game_token
 	
-	var err = $CreateInviteCode/CreateInviteRequest.request(
+	var err = $CreateInviteRequest.request(
 	 global.server_url + "games/lobby/create_invite",
 	 global.user_agent + global.content_type,
 	 global.use_ssl,
@@ -24,6 +27,7 @@ func _on_CreateInviteCode_pressed():
 	)
 	if err != OK:
 		push_error("Couldn't connect")
+		emit_signal("created_invite", false)
 	
 
 func _on_CreateInviteRequest_request_completed(result, response_code, headers, body):
@@ -33,6 +37,7 @@ func _on_CreateInviteRequest_request_completed(result, response_code, headers, b
 
 	if !response["worked"]:
 		push_error("Server had issues creating the invite code!")
+		emit_signal("created_invite", false)
 	
 	global.game_token = response["invite_code"]
-	$CreateInviteCode/Code.text = global.game_token
+	emit_signal("created_invite", true)

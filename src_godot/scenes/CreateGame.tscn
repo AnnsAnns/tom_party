@@ -2,21 +2,9 @@
 
 [ext_resource path="res://scenes/scripts/CreateGame.gd" type="Script" id=1]
 
-[node name="Node" type="Node"]
+[node name="CreateGame" type="Node"]
 script = ExtResource( 1 )
 
-[node name="CreateGame" type="Button" parent="."]
-margin_left = 71.2275
-margin_top = 199.955
-margin_right = 511.227
-margin_bottom = 260.955
-rect_pivot_offset = Vector2( 220, 42.2879 )
-text = "Create Game"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CreateGameRequest" type="HTTPRequest" parent="CreateGame"]
+[node name="CreateGameRequest" type="HTTPRequest" parent="."]
 timeout = 10
-[connection signal="pressed" from="CreateGame" to="." method="_on_CreateGame_pressed"]
-[connection signal="request_completed" from="CreateGame/CreateGameRequest" to="." method="_on_CreateGameRequest_request_completed"]
+[connection signal="request_completed" from="CreateGameRequest" to="." method="_on_CreateGameRequest_request_completed"]

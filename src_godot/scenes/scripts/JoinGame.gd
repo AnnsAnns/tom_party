@@ -2,27 +2,27 @@ extends Node
 
 onready var global = get_node("/root/global")
 
-func _on_JoinGame_pressed():
-	var input_token = $JoinGame/Token
-	
-	if $JoinGame/Name.text == "":
+signal joined_game(worked)
+
+func JoinGame():	
+	if global.name == "":
 		print("No name found")
+		emit_signal("joined_game", false)
 		return
-	else:
-		global.username = $JoinGame/Name.text
 			
-	if global.game_token == "" and input_token == "":
+	if global.game_token == "":
 		print("No Token Found")
+		emit_signal("joined_game", false)
 		return
-	elif global.game_token != "":
-		input_token = global.game_token
 	
 	var request = {
-		"invite_code": global.game_token,
-		"name": global.username
+		"invite_code": global.game_token.json_escape(),
+		"name": global.username.json_escape()
 	}
 	
-	var err = $JoinGame/JoinGameRequest.request(
+	print(request)
+	
+	var err = $JoinGameRequest.request(
 	 global.server_url + "games/lobby/join_game",
 	 global.user_agent + global.content_type,
 	 global.use_ssl,
@@ -31,6 +31,7 @@ func _on_JoinGame_pressed():
 	)
 	if err != OK:
 		push_error("Couldn't connect")
+		emit_signal("joined_game", false)
 	
 
 func _on_JoinGameRequest_request_completed(result, response_code, headers, body):
@@ -41,10 +42,11 @@ func _on_JoinGameRequest_request_completed(result, response_code, headers, body)
 	if !response["worked"]:
 		print("Server had issues processing the join request")
 		
-		if response.contains("error"):
-			print(response["error"])
+		emit_signal("joined_game", false)
 		return
 		
 	global.session_id = response["session_id"]
 	global.user_id = response["user_id"]
 	global.username = response["username"]
+	
+	emit_signal("joined_game", true)
