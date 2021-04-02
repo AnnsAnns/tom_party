@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/scripts/JoinGame.gd" type="Script" id=1]
+
+[node name="Node" type="Node"]
+script = ExtResource( 1 )
+
+[node name="JoinGame" type="Button" parent="."]
+margin_left = 82.9093
+margin_top = 424.837
+margin_right = 522.909
+margin_bottom = 485.837
+rect_pivot_offset = Vector2( 220, 42.2879 )
+text = "Join Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelName" type="Label" parent="JoinGame"]
+margin_left = 487.813
+margin_top = -18.9635
+margin_right = 727.813
+margin_bottom = 3.0365
+text = "Your Name:
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="TextEdit" parent="JoinGame"]
+margin_left = 489.982
+margin_top = 3.02634
+margin_right = 813.982
+margin_bottom = 34.0263
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelToken" type="Label" parent="JoinGame"]
+margin_left = 488.756
+margin_top = 41.4445
+margin_right = 728.756
+margin_bottom = 63.4445
+text = "Invite Code:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Token" type="TextEdit" parent="JoinGame"]
+margin_left = 489.038
+margin_top = 62.4905
+margin_right = 813.038
+margin_bottom = 93.4905
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="JoinGameRequest" type="HTTPRequest" parent="JoinGame"]
+timeout = 10
+[connection signal="pressed" from="JoinGame" to="." method="_on_JoinGame_pressed"]
+[connection signal="request_completed" from="JoinGame/JoinGameRequest" to="." method="_on_JoinGameRequest_request_completed"]

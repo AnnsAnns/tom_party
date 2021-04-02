@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/scripts/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://gfx/Pog.png" type="Texture" id=2]
+[ext_resource path="res://scenes/JoinGame.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/CreateInviteCode.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/CreateGame.tscn" type="PackedScene" id=5]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource( 1 )
@@ -21,106 +24,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CreateGame" type="Button" parent="."]
-margin_left = 71.2275
-margin_top = 199.955
-margin_right = 511.227
-margin_bottom = 260.955
-rect_pivot_offset = Vector2( 220, 42.2879 )
-text = "Create Game"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="CreateGame" parent="." instance=ExtResource( 5 )]
 
-[node name="CreateGameRequest" type="HTTPRequest" parent="CreateGame"]
-timeout = 10
+[node name="CreateInviteCode" parent="." instance=ExtResource( 4 )]
 
-[node name="CreateInviteCode" type="Button" parent="."]
-margin_left = 76.2729
-margin_top = 308.43
-margin_right = 516.273
-margin_bottom = 369.43
-rect_pivot_offset = Vector2( 220, 42.2879 )
-text = "Create Invite Code"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CreateInviteRequest" type="HTTPRequest" parent="CreateInviteCode"]
-timeout = 10
-
-[node name="Top" type="Label" parent="CreateInviteCode"]
-margin_left = 545.189
-margin_top = -20.337
-margin_right = 785.189
-margin_bottom = 1.66298
-text = "The current invite code is: "
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Code" type="Label" parent="CreateInviteCode"]
-margin_left = 571.189
-margin_top = 1.60689
-margin_right = 611.189
-margin_bottom = 15.6069
-rect_scale = Vector2( 3, 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="JoinGame" type="Button" parent="."]
-margin_left = 82.9093
-margin_top = 424.837
-margin_right = 522.909
-margin_bottom = 485.837
-rect_pivot_offset = Vector2( 220, 42.2879 )
-text = "Join Game"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LabelName" type="Label" parent="JoinGame"]
-margin_left = 487.813
-margin_top = -18.9635
-margin_right = 727.813
-margin_bottom = 3.0365
-text = "Your Name:
-"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Name" type="TextEdit" parent="JoinGame"]
-margin_left = 489.982
-margin_top = 3.02634
-margin_right = 813.982
-margin_bottom = 34.0263
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LabelToken" type="Label" parent="JoinGame"]
-margin_left = 488.756
-margin_top = 41.4445
-margin_right = 728.756
-margin_bottom = 63.4445
-text = "Invite Code:"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Token" type="TextEdit" parent="JoinGame"]
-margin_left = 489.038
-margin_top = 62.4905
-margin_right = 813.038
-margin_bottom = 93.4905
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="JoinGameRequest" type="HTTPRequest" parent="JoinGame"]
-timeout = 10
+[node name="JoinGame" parent="." instance=ExtResource( 3 )]
 
 [node name="Pog" type="Sprite" parent="."]
 visible = false
@@ -137,9 +45,3 @@ text = "YOU DID IT, YOU ARE CONNECTED TO THE SERVER"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="CreateGame" to="." method="_on_CreateGame_pressed"]
-[connection signal="request_completed" from="CreateGame/CreateGameRequest" to="." method="_on_CreateGameRequest_request_completed"]
-[connection signal="pressed" from="CreateInviteCode" to="." method="_on_CreateInviteCode_pressed"]
-[connection signal="request_completed" from="CreateInviteCode/CreateInviteRequest" to="." method="_on_CreateInviteRequest_request_completed"]
-[connection signal="pressed" from="JoinGame" to="." method="_on_JoinGame_pressed"]
-[connection signal="request_completed" from="JoinGame/JoinGameRequest" to="." method="_on_JoinGameRequest_request_completed"]
