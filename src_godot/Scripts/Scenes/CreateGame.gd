@@ -20,10 +20,6 @@ func _on_CreateGameRequest_request_completed(result, response_code, headers, bod
 	
 	print(response)
 
-	if !response["worked"]:
-		push_error("Server had issues creating the game!")
-		emit_signal("created_game", false)
-
 	global.session_id = response["uuid_game"]
 	global.owner_id = response["uuid_owner"]
 	

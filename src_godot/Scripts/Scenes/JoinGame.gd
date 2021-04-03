@@ -4,8 +4,8 @@ onready var global = get_node("/root/global")
 
 signal joined_game(worked)
 
-func JoinGame():	
-	if global.name == "":
+func JoinGame():
+	if global.name.empty():
 		print("No name found")
 		emit_signal("joined_game", false)
 		return
@@ -45,7 +45,7 @@ func _on_JoinGameRequest_request_completed(result, response_code, headers, body)
 		emit_signal("joined_game", false)
 		return
 		
-	global.session_id = response["session_id"]
+	global.session_id = response["uuid_game"]
 	global.user_id = response["user_id"]
 	global.username = response["username"]
 	

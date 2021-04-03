@@ -1,6 +1,12 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://scenes/scripts/CreateInviteCode.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Scenes/CreateInviteCode.gd" type="Script" id=1]
+
+
+
+
+
+
 
 [node name="CreateInvite" type="Node"]
 script = ExtResource( 1 )

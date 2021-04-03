@@ -22,7 +22,6 @@ func _on_CreateGame_created_game(worked):
 	
 	$CreateInvite.CreateInvite()
 
-
 func _on_CreateInvite_created_invite(worked):
 	if !worked:
 		print("Error creating invite")
@@ -42,3 +41,7 @@ func _on_NameTbx_text_changed():
 func _on_InviteCodeTbx_text_changed():
 	global.game_token = $InviteCodeTbx.text
 	print(global.game_token)
+
+func _on_TestButton_pressed():
+	$TestButton/RequestPlayerData.RequestPlayerData()
+	

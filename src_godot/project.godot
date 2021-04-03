@@ -16,12 +16,12 @@ _global_script_class_icons={
 [application]
 
 config/name="tom_party"
-run/main_scene="res://scenes/MainMenu.tscn"
+run/main_scene="res://Scenes/UI/MainMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-global="*res://scenes/scripts/global.gd"
+global="*res://Scripts/AutoLoad/Global.gd"
 
 [debug]
 
