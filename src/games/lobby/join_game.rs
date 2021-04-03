@@ -77,7 +77,7 @@ pub fn join_game(data: Json<JoinGame>) -> JsonValue {
 
     json!({
         "worked": true,
-        "session_id": session_id,
+        "uuid_game": session_id,
         "username": data.name,
         "user_id": user_id,
         "active_players": players + 1
