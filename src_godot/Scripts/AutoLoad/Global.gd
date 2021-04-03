@@ -5,7 +5,7 @@ var session_id: String
 var owner_id: String
 var user_id: String
 var game_token: String
-var username: String = "Test"
+var username: String = "Unknown User"
 
 # Server Data
 var server_url = "http://127.0.0.1:8000/"

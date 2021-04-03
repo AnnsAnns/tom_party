@@ -78,11 +78,11 @@ __meta__ = {
 }
 
 [node name="TestButton" type="Button" parent="."]
-margin_left = 704.341
-margin_top = 505.905
-margin_right = 1018.34
-margin_bottom = 566.905
-text = "Settings"
+margin_left = 863.941
+margin_top = 532.487
+margin_right = 1016.94
+margin_bottom = 593.487
+text = "Test Parse Game Data"
 __meta__ = {
 "_edit_use_anchors_": false
 }

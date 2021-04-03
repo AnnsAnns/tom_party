@@ -9,8 +9,8 @@ func _on_JoinGame_joined_game(worked):
 	if !worked:
 		print("Couldn't join game!")
 		return
-	
-	# @TODO: Load next scene
+		
+	global.goto_scene("res://Scenes/UI/Lobby.tscn")
 
 func _on_CreateGameButton_pressed():
 	$CreateGame.CreateGame()
@@ -29,7 +29,8 @@ func _on_CreateInvite_created_invite(worked):
 	
 	$InviteCodeTbx.text = global.game_token
 	print(global.game_token)
-	# @tODO: Load next scene
+	
+	$JoinGame.JoinGame()
 
 func _on_QuitButton_pressed():
 	get_tree().quit()

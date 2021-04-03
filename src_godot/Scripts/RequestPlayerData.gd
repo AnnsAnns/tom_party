@@ -1,12 +1,14 @@
 extends Node
 
+signal worked
+
 onready var global = get_node("/root/global")
 onready var GameData = get_node("/root/GameData")
 
 var http: HTTPRequest
 var worked: bool = true
 
-func RequestPlayerData() -> bool:
+func RequestPlayerData():
 	# Create HTTPRequest Node
 	http = HTTPRequest.new()
 	add_child(http)
@@ -25,23 +27,16 @@ func RequestPlayerData() -> bool:
 		JSON.print(request)
 	)
 	if err != OK:
-		return false
-	
-	yield(http, "request_completed") # Wait for the request to complete
-	return worked
+		push_error(err)
 
 func _on_request_completed(result, response_code, headers, body):
 	var response = JSON.parse(body.get_string_from_utf8()).result
 	
-	print(response)
+	print(response.keys())
 	
-	for player in response:
-		GameData.player_data[player] = GameData.Player.new()
-		GameData.player_data[player].Name = player
-		
-		if response[player]["connected"] == "true":
-			GameData.player_data[player].Online = true
-		else:
-			GameData.player_data[player].Online = false
+	for player in response.keys():
+		GameData.players[player] = player
+	
+	emit_signal("worked")
 	
 	http.queue_free() # Once it has nothing to do, it will be deleted

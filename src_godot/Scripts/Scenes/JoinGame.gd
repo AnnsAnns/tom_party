@@ -48,5 +48,6 @@ func _on_JoinGameRequest_request_completed(result, response_code, headers, body)
 	global.session_id = response["uuid_game"]
 	global.user_id = response["user_id"]
 	global.username = response["username"]
+	GameData.active_players = response["active_players"]
 	
 	emit_signal("joined_game", true)
