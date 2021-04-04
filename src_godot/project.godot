@@ -23,6 +23,7 @@ config/icon="res://icon.png"
 
 global="*res://Scripts/AutoLoad/Global.gd"
 GameData="*res://Scripts/AutoLoad/GameData.gd"
+Heartbeat="*res://Scripts/AutoLoad/Heartbeat.gd"
 
 [debug]
 

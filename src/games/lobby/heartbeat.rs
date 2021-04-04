@@ -21,7 +21,7 @@ pub fn heartbeat(data: Json<Heartbeat>) -> Status {
 
     let uuid_user: String = match con.hget(format!("{}:players", &data.uuid_game), &data.username) {
         Ok(u) => u,
-        Err(_err) => return Status::NotFound
+        Err(_err) => return Status::InternalServerError
     };
 
     if uuid_user != data.user_id {
