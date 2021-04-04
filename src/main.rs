@@ -17,7 +17,8 @@ fn main() {
                 games::lobby::init::init,
                 games::lobby::create_invite::create_invite,
                 games::lobby::join_game::join_game,
-                games::lobby::request_player_data::request_player_data
+                games::lobby::request_player_data::request_player_data,
+                games::lobby::heartbeat::heartbeat
             ],
         )
         .launch();

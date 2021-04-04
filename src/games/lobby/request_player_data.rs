@@ -1,13 +1,10 @@
 use std::collections::HashMap;
 
 use redis::Commands;
-use rocket::{Request, response};
 use serde::Deserialize;
 
 use rocket_contrib::json::Json;
 use rocket_contrib::json::JsonValue;
-use uuid::Uuid;
-
 use crate::db;
 use crate::helpers;
 

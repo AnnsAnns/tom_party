@@ -12,9 +12,9 @@ pub fn init_con() -> Result<redis::Connection, Box<dyn Error>> {
     Ok(con)
 }
 
-pub fn hset(con: &mut Connection, key: &str, field: &str, value: &str) {
+pub fn hset(con: &mut Connection, key: &str, field: &str, value: &str, expire: usize) {
     let _: () = con.hset(key, field, value).unwrap();
-    let _: () = con.expire(key, 30 * 60).unwrap(); // Expire session after 30 minutes
+    let _: () = con.expire(key, expire * 60).unwrap(); // Expire session after ? minutes
 }
 
 pub fn set(con: &mut Connection, key: &str, value: &str) {

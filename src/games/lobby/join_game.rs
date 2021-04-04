@@ -48,6 +48,7 @@ pub fn join_game(data: Json<JoinGame>) -> JsonValue {
         &format!("{}:players", &session_id),
         "amount",
         &(&players + 1).to_string(),
+        30
     ); // Increase active players by one
 
     let user_id: String = match players {
@@ -62,6 +63,7 @@ pub fn join_game(data: Json<JoinGame>) -> JsonValue {
         &format!("{}:players", &session_id),
         &data.name,
         &user_id,
+        30
     );
 
     db::hset(
@@ -72,7 +74,8 @@ pub fn join_game(data: Json<JoinGame>) -> JsonValue {
          &data.name
         ),
         "connected",
-        "true"
+        "true",
+        3
     );
 
     json!({

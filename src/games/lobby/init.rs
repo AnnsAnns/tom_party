@@ -21,6 +21,7 @@ pub fn init() -> JsonValue {
         &format!("{id}", id = &uuid_game),
         "owner",
         &uuid_owner,
+        30
     );
 
     db::hset(
@@ -28,6 +29,7 @@ pub fn init() -> JsonValue {
         &format!("{}:players", &uuid_game),
         "amount",
         "0",
+        30
     );
 
     json!({

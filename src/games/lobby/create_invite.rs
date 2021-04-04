@@ -44,6 +44,7 @@ pub fn create_invite(data: Json<InviteBody>) -> JsonValue {
         &format!("{}", &data.uuid_game),
         "invite_code",
         &invite_code,
+        30
     );
 
     match &data.old_token {
