@@ -21,5 +21,12 @@ fn main() {
                 games::lobby::heartbeat::heartbeat
             ],
         )
+        .mount(
+            "/games/svar/",
+            routes![
+                games::svar::question::get_question,
+                games::svar::question::next_question
+            ],
+        )
         .launch();
 }
