@@ -42,7 +42,3 @@ func _on_NameTbx_text_changed():
 func _on_InviteCodeTbx_text_changed():
 	global.game_token = $InviteCodeTbx.text
 	print(global.game_token)
-
-func _on_TestButton_pressed():
-	$TestButton/RequestPlayerData.RequestPlayerData()
-	
