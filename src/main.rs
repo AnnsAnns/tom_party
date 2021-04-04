@@ -25,7 +25,8 @@ fn main() {
             "/games/svar/",
             routes![
                 games::svar::question::get_question,
-                games::svar::question::next_question
+                games::svar::question::next_question,
+                games::svar::answer::answer
             ],
         )
         .launch();

@@ -4,6 +4,9 @@ use serde::Deserialize;
 
 use rocket_contrib::json::Json;
 use rocket_contrib::json::JsonValue;
+
+use uuid::Uuid;
+
 use crate::db;
 use crate::helpers;
 
@@ -24,9 +27,12 @@ pub fn get_question(data: Json<GetQuestion>) -> JsonValue {
         Err(_err) => return helpers::error_message("Couldn't get question!")
     };
 
+    let question_id: String = con.hget(format!("{}:svar", &data.uuid_game), "current_question_id").unwrap();
+
     json!({
         "worked": true,
-        "question": question
+        "question": question,
+        "question_id": question_id
     })
 }
 
@@ -57,8 +63,15 @@ pub fn next_question(data: Json<NextQuestion>) -> JsonValue {
     let mut rng = thread_rng();
     let question: String = questions[rng.gen_range(0..questions.len())].to_string();
 
+    let question_id: String = Uuid::new_v4().to_string();
+
+    db::hset(&mut con, &format!("{}:svar:{}", &data.uuid_game, &question_id), "question", &question, 5);
+    db::hset(&mut con, &format!("{}:svar", &data.uuid_game), "current_question", &question, 5);
+    db::hset(&mut con, &format!("{}:svar", &data.uuid_game), "current_question_id", &question_id, 5);
+
     json!({
         "worked": true,
+        "question_id": question_id,
         "question": question
     })
 }
