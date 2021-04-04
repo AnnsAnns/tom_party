@@ -53,4 +53,36 @@ __meta__ = {
 }
 
 [node name="RequestPlayerData" parent="." instance=ExtResource( 2 )]
+
+[node name="ChooseGameButton" type="OptionButton" parent="."]
+margin_left = 721.109
+margin_top = 435.418
+margin_right = 993.109
+margin_bottom = 485.418
+text = "Choose your desired game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayButton" type="Button" parent="ChooseGameButton"]
+margin_left = 114.0
+margin_top = 76.0
+margin_right = 271.0
+margin_bottom = 119.0
+text = "Play"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_left = 9.20012
+margin_top = 555.364
+margin_right = 115.2
+margin_bottom = 590.364
+text = "Leave"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="worked" from="RequestPlayerData" to="." method="_on_RequestPlayerData_worked"]
+[connection signal="pressed" from="ChooseGameButton/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

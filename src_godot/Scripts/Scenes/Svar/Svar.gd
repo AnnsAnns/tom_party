@@ -3,6 +3,8 @@ extends Node2D
 onready var global = get_node("/root/global")
 onready var GameData = get_node("/root/GameData")
 
+signal http_finished
+
 var http: HTTPRequest
 
 var question: String
@@ -103,29 +105,43 @@ func _answer_on_request_completed(result, response_code, headers, body):
 	if response["worked"] != true:
 		push_error("The server has issues with the request: " + response["error"])
 	
+	emit_signal("http_finished")
 	http.queue_free() # Once it has nothing to do, it will be deleted
 
 func _on_Submit_pressed():
 	submit()
+	$Submit.disabled = true
 
 func _on_AnswerTextbox_text_changed():
 	answer = $AnswerTextbox.text
 
 func _ready():
+	_on_UpdatePlayerData_timeout()
+	
 	if global.owner_id != "":
 		nextQuestion()
 	else:
 		getQuestion()
 	
-	$QuestionLabel.text = question
-	
-	$Timer.start
+	$Timer.start()
 	
 	while $Timer.time_left > 0:
-		$Timer/Label.text = "Remaining Time: \n" + str($Timer.time_left) + " Seconds"
+		if question == "":
+			question = "Loading question ..."
+		$QuestionLabel.text = question
+		$Timer/Label.text = "Remaining Time: \n" + str($Timer.time_left).pad_decimals(0) + " Seconds"
 		yield(get_tree().create_timer(1), "timeout") # Sleep for another second
 	
 	# @TODO: Implement next scene and switch to it
 
+func updateUiInfo():
+	$PlayerNamesLabel.text = ""
+	$PlayerAmount.text = "Current Players: " + str(GameData.active_players)
+	$InviteCode.text = "Invite Code: \n" + global.game_token
+	
+	for player in GameData.players.keys():
+		$PlayerNamesLabel.text += player + "\n"
+
 func _on_UpdatePlayerData_timeout():
-	$Lobby._ready()
+	$RequestPlayerData.RequestPlayerData()
+	updateUiInfo()

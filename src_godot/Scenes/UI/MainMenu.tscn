@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Scenes/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://Gfx/Pog.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Functions/JoinGame.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Functions/CreateInviteCode.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Functions/CreateGame.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scenes/Functions/RequestPlayerData.tscn" type="PackedScene" id=6]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource( 1 )
@@ -77,18 +76,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TestButton" type="Button" parent="."]
-margin_left = 863.941
-margin_top = 532.487
-margin_right = 1016.94
-margin_bottom = 593.487
-text = "Test Parse Game Data"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RequestPlayerData" parent="TestButton" instance=ExtResource( 6 )]
-
 [node name="QuitButton" type="Button" parent="."]
 margin_left = 341.121
 margin_top = 508.8
@@ -147,7 +134,6 @@ __meta__ = {
 [connection signal="created_game" from="CreateGame" to="." method="_on_CreateGame_created_game"]
 [connection signal="pressed" from="CreateGameButton" to="." method="_on_CreateGameButton_pressed"]
 [connection signal="pressed" from="JoinGameButton" to="." method="_on_JoinGameButton_pressed"]
-[connection signal="pressed" from="TestButton" to="." method="_on_TestButton_pressed"]
 [connection signal="pressed" from="QuitButton" to="." method="_on_QuitButton_pressed"]
 [connection signal="text_changed" from="NameTbx" to="." method="_on_NameTbx_text_changed"]
 [connection signal="text_changed" from="InviteCodeTbx" to="." method="_on_InviteCodeTbx_text_changed"]
