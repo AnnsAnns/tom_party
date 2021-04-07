@@ -1,3 +1,11 @@
+## This Project Is On Hold
+
+The library that I use for the server (Rocket) doesn't currently support websocket/webrtc natively which basically kills any further plans for this project, unless I rewrite a lot of my current code to use another library or have a weird hybrid between another codebase just for websockets/webrtc.
+
+This doesn't meant that I won't revisit this project in the future or create a similar project. I have learned quite a lot through this project and have been more motivated to develop this project than I have been with any project before that.
+
+As of writing this, there are 2 fully working components. The [lobby system](https://github.com/tumGER/tom_party#lobby) and [Svar](https://github.com/tumGER/tom_party#svar), a "Who creates the funniest reply to the question" game.
+
 ## tom_party [Placeholder Name]
 
 This is an experimental project of mine. The idea is to create a party-game similar to Jackbox.
