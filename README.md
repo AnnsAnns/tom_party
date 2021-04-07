@@ -19,6 +19,10 @@ The Godot client, written in GDScript, is located within the ```src_godot``` fol
 
 The redis DB follows the standard config and works out of the box.
 
+## Frontend
+
+![ye743GaJiH](https://user-images.githubusercontent.com/25822956/113868802-5c174800-97b0-11eb-9d9e-38207530e7d1.gif)
+
 ## Backend Api:
 ### Lobby:
 
