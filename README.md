@@ -11,6 +11,14 @@ This needs:
  - Redis
  - Godot
 
+### Structure:
+
+This server, written in Rust using Rocket, is located within the ```src``` folder. The folder and file structure relates to the API structure ([See: Backend API](https://github.com/tumGER/tom_party#backend-api)).
+
+The Godot client, written in GDScript, is located within the ```src_godot``` folder. It follows the standard Godot structure of ```Scenes``` and ```Scripts``` with subfolders relating to their usage, such as ```Functions```, ```AutoLoad``` or ```UI```.
+
+The redis DB follows the standard config and works out of the box.
+
 ## Backend Api:
 ### Lobby:
 
